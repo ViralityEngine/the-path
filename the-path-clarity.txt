@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Path Education — Where Knowledge Becomes Direction</title>
+  <meta name="description" content="Clarity-first education. Learning explained the way it should have been." />
+  <style>
+    :root{
+      --bg0:#05070d;
+      --bg1:#070b16;
+      --ink:#e9eefc;
+      --muted:rgba(233,238,252,.72);
+      --muted2:rgba(233,238,252,.52);
+      --gold:#d4af37;
+      --line:rgba(233,238,252,.14);
+      --card:rgba(12,18,38,.55);
+      --card2:rgba(12,18,38,.32);
+      --shadow: 0 30px 80px rgba(0,0,0,.45);
+      --radius: 18px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--ink);
+      background: radial-gradient(1200px 900px at 20% -10%, #101a3a 0%, transparent 55%),
+                  radial-gradient(900px 700px at 85% 10%, #251a3d 0%, transparent 55%),
+                  linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow-x:hidden;
+    }
+
+    /* Subtle starfield */
+    .stars, .stars:before, .stars:after{
+      position:fixed; inset:0;
+      content:"";
+      background-image:
+        radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,.35) 50%, transparent 51%),
+        radial-gradient(1px 1px at 30% 70%, rgba(255,255,255,.25) 50%, transparent 51%),
+        radial-gradient(1px 1px at 80% 30%, rgba(255,255,255,.20) 50%, transparent 51%),
+        radial-gradient(1px 1px at 55% 45%, rgba(255,255,255,.18) 50%, transparent 51%),
+        radial-gradient(1px 1px at 75% 80%, rgba(255,255,255,.22) 50%, transparent 51%),
+        radial-gradient(1px 1px at 15% 85%, rgba(255,255,255,.16) 50%, transparent 51%);
+      opacity:.6;
+      pointer-events:none;
+      filter: blur(.2px);
+    }
+    .stars:before{ opacity:.35; transform: scale(1.3); }
+    .stars:after{ opacity:.25; transform: scale(1.7); }
+
+    /* A slow “comet sweep” */
+    .comet{
+      position:fixed;
+      width:520px; height:2px;
+      background: linear-gradient(90deg, transparent, rgba(212,175,55,.95), transparent);
+      top:18%; left:-40%;
+      transform: rotate(12deg);
+      opacity:.35;
+      filter: blur(.2px);
+      pointer-events:none;
+      animation: sweep 12s ease-in-out infinite;
+    }
+    @keyframes sweep{
+      0%{ left:-45%; opacity:.0; }
+      15%{ opacity:.35; }
+      50%{ left:110%; opacity:.18; }
+      100%{ left:110%; opacity:0; }
+    }
+
+    .wrap{
+      position:relative;
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 28px 18px 80px;
+    }
+
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      padding: 14px 6px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      text-decoration:none;
+      color:var(--ink);
+    }
+    .mark{
+      width:42px; height:42px;
+      border-radius: 14px;
+      background:
+        radial-gradient(12px 12px at 30% 30%, rgba(255,255,255,.22) 0%, transparent 60%),
+        radial-gradient(16px 16px at 70% 70%, rgba(212,175,55,.25) 0%, transparent 70%),
+        linear-gradient(135deg, rgba(212,175,55,.22), rgba(255,255,255,.06));
+      border:1px solid rgba(212,175,55,.35);
+      box-shadow: 0 12px 35px rgba(0,0,0,.35);
+      position:relative;
+      overflow:hidden;
+    }
+    .mark:after{
+      content:"";
+      position:absolute; inset:-40%;
+      background: conic-gradient(from 220deg, transparent, rgba(212,175,55,.45), transparent);
+      animation: spin 10s linear infinite;
+      opacity:.55;
+    }
+    @keyframes spin{ to{ transform: rotate(360deg);} }
+
+    .brand strong{ letter-spacing:.3px; font-weight:700; }
+    .brand span{ display:block; font-size:12px; color:var(--muted2); margin-top:2px; }
+
+    .pill{
+      border:1px solid rgba(233,238,252,.18);
+      background: rgba(12,18,38,.35);
+      padding: 10px 12px;
+      border-radius: 999px;
+      color:var(--muted);
+      font-size: 13px;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      backdrop-filter: blur(10px);
+    }
+    .pill b{ color:var(--ink); font-weight:650; }
+    .pill .dot{
+      width:7px; height:7px; border-radius:99px;
+      background: var(--gold);
+      box-shadow: 0 0 18px rgba(212,175,55,.6);
+    }
+
+    .hero{
+      margin-top: 44px;
+      padding: 30px 22px;
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, var(--card), var(--card2));
+      border: 1px solid rgba(233,238,252,.14);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+    }
+
+    .kicker{
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      font-size: 12px;
+    }
+
+    h1{
+      margin: 12px 0 14px;
+      font-size: clamp(30px, 5.2vw, 52px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+
+    .sub{
+      font-size: 16px;
+      line-height: 1.55;
+      color: var(--muted);
+      max-width: 66ch;
+      margin: 0 0 22px;
+    }
+
+    .line{
+      height:1px;
+      background: linear-gradient(90deg, transparent, var(--line), transparent);
+      margin: 18px 0 18px;
+    }
+
+    .quote{
+      font-size: clamp(18px, 2.6vw, 22px);
+      line-height: 1.45;
+      margin: 0;
+    }
+    .quote em{
+      font-style: normal;
+      color: var(--gold);
+    }
+
+    .ctaRow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      align-items:center;
+      margin-top: 20px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      text-decoration:none;
+      font-weight: 650;
+      border: 1px solid rgba(233,238,252,.18);
+      background: rgba(10,14,30,.35);
+      color: var(--ink);
+      backdrop-filter: blur(10px);
+    }
+    .btn:hover{ border-color: rgba(212,175,55,.45); }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(212,175,55,.22), rgba(255,255,255,.05));
+      border-color: rgba(212,175,55,.38);
+    }
+
+    .small{
+      color: var(--muted2);
+      font-size: 13px;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 16px;
+    }
+    @media (min-width: 760px){
+      .grid{ grid-template-columns: 1fr 1fr; }
+    }
+    .card{
+      padding: 16px 16px 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(233,238,252,.12);
+      background: rgba(8,12,26,.28);
+    }
+    .card h3{
+      margin: 0 0 8px;
+      font-size: 14px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .card p{
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 14px;
+    }
+    footer{
+      margin-top: 26px;
+      padding: 10px 6px 0;
+      color: var(--muted2);
+      font-size: 12px;
+      display:flex;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+    footer a{ color: var(--muted); text-decoration:none; }
+    footer a:hover{ color: var(--ink); }
+
+    /* Accessibility focus */
+    a:focus, button:focus { outline: 2px solid rgba(212,175,55,.7); outline-offset: 2px; }
+  </style>
+</head>
+
+<body>
+  <div class="stars"></div>
+  <div class="comet"></div>
+
+  <div class="wrap">
+    <header>
+      <a class="brand" href="#">
+        <div class="mark" aria-hidden="true"></div>
+        <div>
+          <strong>Path Education</strong>
+          <span>Where knowledge becomes direction</span>
+        </div>
+      </a>
+
+      <!-- Replace the link below with your website or channel -->
+      <a class="pill" href="https://patheducation.academy" target="_blank" rel="noopener">
+        <span class="dot" aria-hidden="true"></span>
+        <b>Enter</b> patheducation.academy
+      </a>
+    </header>
+
+    <main class="hero">
+      <div class="kicker">A public artifact</div>
+
+      <h1>Learning shouldn’t feel heavy.</h1>
+
+      <p class="sub">
+        Most people don’t struggle because they’re not smart.
+        They struggle because learning was never explained clearly.
+        <br><br>
+        Path Education is for clarity-first learning—where ideas connect, effort feels lighter,
+        and knowledge becomes direction.
+      </p>
+
+      <div class="line"></div>
+
+      <p class="quote">
+        Confusion is not a sign of low ability.
+        <br>
+        It’s usually a sign of <em>poor explanation</em>.
+      </p>
+
+      <div class="ctaRow">
+        <!-- Replace with your YouTube channel link -->
+        <a class="btn primary" href="https://www.youtube.com/@PathEducation-Academy/" target="_blank" rel="noopener">
+          Watch on YouTube →
+        </a>
+        <!-- Replace with your website page or another artifact -->
+        <a class="btn" href="https://patheducation.academy" target="_blank" rel="noopener">
+          Visit the website →
+        </a>
+      </div>
+
+      <p class="small" style="margin-top:14px;">
+        No funnels. No pressure. If this resonates, you already know what to do.
+      </p>
+
+      <div class="grid">
+        <div class="card">
+          <h3>What this is</h3>
+          <p>A calm space for clear thinking: languages, exams, skills, and understanding—explained without noise.</p>
+        </div>
+        <div class="card">
+          <h3>What this is not</h3>
+          <p>Hype. Tricks. Manipulation. Learning deserves dignity—and so do you.</p>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div>© <span id="y"></span> Path Education</div>
+      <div>
+        <a href="https://patheducation.academy" target="_blank" rel="noopener">Website</a>
+        &nbsp;·&nbsp;
+        <a href="https://https://www.youtube.com/@PathEducation-Academy/" target="_blank" rel="noopener">YouTube</a>
+        &nbsp;·&nbsp;
+        <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">Top</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
